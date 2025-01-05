@@ -5,7 +5,7 @@
 
 struct view_matrix_t 
 {
-	float* operator()(int index)
+	float* operator[](int index)
 	{
 		return matrix[index];
 	}

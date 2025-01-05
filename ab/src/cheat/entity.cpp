@@ -51,16 +51,3 @@ void Reader::FilterPlayers()
 		playerList.push_back(CCSPlayerPawn);
 	}
 }
-
-void Aimbot::doAimbot()
-{
-}
-
-Vector Aimbot::findClosest(const std::vector<Vector> playerPositions)
-{
-	return Vector();
-}
-
-void Aimbot::MoveMouseToPlayer(Vector position)
-{
-}

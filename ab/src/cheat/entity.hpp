@@ -1,5 +1,5 @@
 #include "../mem/memify.h"
-#include "../math/math.hpp"
+#include "../math/vector.hpp"
 
 #include <vector>
 #include <thread>
