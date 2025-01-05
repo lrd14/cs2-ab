@@ -4,21 +4,15 @@
 void Reader::ThreadLoop()
 {
 	while (!client) {
-		Sleep(20);
+		std::this_thread::sleep_for(std::chrono::milliseconds(15));
 		client = mem.GetBase("client.dll");
-		std::cout << "client" << std::hex << client << std::endl;
+		std::cout << "client.dll" << std::hex << client << std::endl;
 	}
-
-	int loops = 0;
 
 	while (true)
 	{
-		std::this_thread::sleep_for(std::chrono::milliseconds(1));
-		if (loops > 50) {
-			FilterPlayers();
-			loops = 0;
-		}
-		++loops;
+		std::this_thread::sleep_for(std::chrono::milliseconds(250));
+		FilterPlayers();
 	}
 }
 

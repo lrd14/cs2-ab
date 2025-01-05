@@ -10,13 +10,9 @@ void Aimbot::doAimbot()
 
 	playerPositions.empty();
 
-	for (auto& player : reader.playerList)
+	for (const auto& player : reader.playerList)
 	{
 		Vector playerPosition = mem.Read<Vector>(player.pCSPlayerPawn + offset::m_vOldOrigin);
-		uintptr_t spottedState = mem.Read<uintptr_t>(player.pCSPlayerPawn + offset::m_entitySpottedState);
-
-		if (!mem.Read<bool>(spottedState + 0x8))
-			continue;
 
 		Vector headPos = { playerPosition.x += 0.0, playerPosition.y += 0.0, playerPosition.z += 65.f };
 
