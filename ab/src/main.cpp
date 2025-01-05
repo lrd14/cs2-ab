@@ -1,4 +1,5 @@
 #include "cheat/entity.hpp"
+#include <string_view>
 
 int main()
 {
