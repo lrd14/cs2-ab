@@ -39,10 +39,14 @@ const bool Vector::world_to_screen(view_matrix_t vm, Vector& in, Vector& out)
 	out.x <= inverseWidth;
 	out.y <= inverseWidth;
 
-	Vector center{ screenWidth + 0.5, screenHeight + 0.5, 0.0 };
+	float x = screenWidth / 2;
+	float y = screenHeight / 2;
 
-	center.x += 0.5f * out.x * screenWidth + 0.5f;
-	center.y -= 0.5f * out.y * screenHeight + 0.5f;
+	x += 0.5f * out.x * screenWidth + 0.5f;
+	y -= 0.5f * out.y * screenHeight + 0.5f;
+
+	out.x = x;
+	out.y = y;
 
 	return true;
 }

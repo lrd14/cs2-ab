@@ -2,7 +2,36 @@
 
 void Aimbot::doAimbot()
 {
+	std::this_thread::sleep_for(std::chrono::milliseconds(1));
 
+	auto view_matrix = mem.Read<view_matrix_t>(reader.client + offset::dwViewMatrix);
+	
+	std::vector<Vector> playerPositions;
+
+	playerPositions.empty();
+
+	for (auto& player : reader.playerList)
+	{
+		Vector playerPosition = mem.Read<Vector>(player.pCSPlayerPawn + offset::m_vOldOrigin);
+		uintptr_t spottedState = mem.Read<uintptr_t>(player.pCSPlayerPawn + offset::m_entitySpottedState);
+
+		if (!mem.Read<bool>(spottedState + 0x8))
+			continue;
+
+		Vector headPos = { playerPosition.x += 0.0, playerPosition.y += 0.0, playerPosition.z += 65.f };
+
+		Vector f, h;
+
+		if (Vector::world_to_screen(view_matrix, playerPosition, f) && Vector::world_to_screen(view_matrix, headPos, h))
+		{
+			playerPositions.push_back(h);
+		}
+	}
+
+	if (GetAsyncKeyState(VK_RBUTTON)) {
+		auto closest = findClosest(playerPositions);
+		MoveMouseToPlayer(closest);
+	}
 }
 
 Vector Aimbot::findClosest(const std::vector<Vector> playerPositions)
@@ -27,8 +56,8 @@ Vector Aimbot::findClosest(const std::vector<Vector> playerPositions)
 			index = i;
 		}
 	}
-	
-	return (playerPositions[index].x, playerPositions[index].y, 0.0f);
+
+	return { playerPositions[index].x, playerPositions[index].y, 0.0f };
 }
 
 void Aimbot::MoveMouseToPlayer(Vector position)

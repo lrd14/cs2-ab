@@ -4,7 +4,7 @@
 #include <vector>
 #include <thread>
 
-memify mem("cs2.exe");
+inline memify mem("cs2.exe");
 
 namespace offset
 {
